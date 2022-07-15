@@ -43,6 +43,21 @@
 <button></button>
 <script>
 
+  const divs = document.querySelectorAll('div');
+
+  function logText(e) {
+    // stopPropogation stops the bubbling on capture:false and prints the deepest element (in this case, three)
+    // on capture:true, it stops it at the highermost element (in this case, one)
+    e.stopPropogation();
+    console.log(this.classList.value);
+  }
+
+  // capture:false (the default) runs logText on bubble up (three, two, one), 
+  // capture:true it goes on capture down (one, two, three)
+  // once: true makes it so the event only fires once (As though removeEventListener after it fires once)
+  // // One good example of a place to use this is in store checkout buttons
+  divs.forEach(div => div.addEventListener('click', logText, {capture: false, once: true}));
+
 </script>
 </body>
 </html>
